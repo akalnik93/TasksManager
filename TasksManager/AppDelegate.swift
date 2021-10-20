@@ -16,13 +16,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         window = UIWindow(frame: UIScreen.main.bounds)
-        
+ 
         let firstVC = NowTasksViewController()
         let secondVC = CompleteTasksViewController()
         
         let tabBarVC = UITabBarController()
         tabBarVC.setViewControllers([firstVC, secondVC], animated: true)
         tabBarVC.tabBar.barTintColor = .black
+        
+        firstVC.setTabBarHeight(height: tabBarVC.tabBar.frame.height + window!.safeAreaInsets.bottom)
+        secondVC.setTabBarHeight(height: tabBarVC.tabBar.frame.height)
         
         let tabBarItemNow = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
         firstVC.tabBarItem = tabBarItemNow

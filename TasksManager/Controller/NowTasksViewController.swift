@@ -10,6 +10,14 @@ import UIKit
 
 class NowTasksViewController: UIViewController {
     
+    var tabBarSet: Bool = false
+    
+    var tabBarHeight : CGFloat?
+    
+    func setTabBarHeight(height : CGFloat) {
+        self.tabBarHeight = height
+    }
+    
     let tableView : UITableView = {
         var tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -18,11 +26,13 @@ class NowTasksViewController: UIViewController {
     
     let addTaskButton: UIButton = {
         let button = UIButton()
-        button.setTitle("AddTask", for: .normal)
-        button.setTitleColor(#colorLiteral(red: 0, green: 0, blue: 0, alpha: 1), for: .normal)
-        button.titleLabel?.font = UIFont(name: "Calibri", size: 16)
+        button.setTitle("TASK", for: .normal)
+        button.setTitleColor(.white, for: .normal)
+//        button.titleLabel?.font = UIFont(name: "Calibri", size: 27)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(openAlert), for: .touchUpInside)
+        button.layer.cornerRadius = 30
+//        button.clipsToBounds = true
     return button
     }()
     
@@ -53,16 +63,18 @@ class NowTasksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        self.view.backgroundColor = .white
         
-        tableView.delegate = self
-        tableView.dataSource = self
-        constraintsForTable()
-        
-        contraintsForButton()
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if tabBarSet == false {
+            contraintsForButton()
+            constraintsForTable()
+            tabBarSet = true
+        }
         tableView.reloadData()
     }
 }
@@ -103,33 +115,27 @@ extension NowTasksViewController: UITableViewDelegate {
     }
 }
 
-//MARK: Create on View and Setup Table
-    
 extension NowTasksViewController {
+    //MARK: Create on View and Setup Table
     func constraintsForTable() {
-        view.addSubview(tableView)
+        self.view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-//            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            tableView.heightAnchor.constraint(equalToConstant: 750)
+            tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            tableView.bottomAnchor.constraint(equalTo: self.addTaskButton.topAnchor)
             ])
     }
-}
-
-// MARK: Create on View and Setup Button
-
-extension NowTasksViewController {
+    //Create on View and Setup Button
     func contraintsForButton() {
-        view.addSubview(addTaskButton)
+        self.view.addSubview(addTaskButton)
+        guard let height = self.tabBarHeight else { return }
         NSLayoutConstraint.activate([
-            addTaskButton.topAnchor.constraint(equalTo: tableView.bottomAnchor, constant: 0),
-            addTaskButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
-            addTaskButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 0),
-            addTaskButton.heightAnchor.constraint(equalToConstant: 60)
-//            addTaskButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-//            addTaskButton.bottomAnchor.constraint(equalTo: tabBarController?.tabBar.heightAnchor.accessibilityFrame.size.height)
+            addTaskButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -height - self.view.safeAreaInsets.bottom),
+            addTaskButton.heightAnchor.constraint(equalToConstant: 60),
+            addTaskButton.widthAnchor.constraint(equalToConstant: 60),
+            addTaskButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
             ])
+        addTaskButton.backgroundColor = .gray
     }
 }

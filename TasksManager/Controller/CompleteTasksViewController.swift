@@ -10,6 +10,12 @@ import UIKit
 
 class CompleteTasksViewController: UIViewController {
 
+    var tabBarHeight : CGFloat?
+    
+    func setTabBarHeight(height : CGFloat) {
+        self.tabBarHeight = height
+    }
+    
     let tableView : UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
@@ -18,15 +24,16 @@ class CompleteTasksViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 1, green: 1, blue: 1, alpha: 1)
+        view.backgroundColor = .white
         
         tableView.delegate = self
         tableView.dataSource = self
-        constraintsForTable()
+//        constraintsForTable()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        constraintsForTable()
         tableView.reloadData()
     }
 }
@@ -67,16 +74,16 @@ extension CompleteTasksViewController: UITableViewDelegate {
     }
 }
 
-//MARK: Create on View and Setup Table
-
+//Create on View and Setup Table
 extension CompleteTasksViewController {
     func constraintsForTable() {
         view.addSubview(tableView)
+        guard let height = self.tabBarHeight else { return }
         NSLayoutConstraint.activate([
             tableView.topAnchor.constraint(equalTo: view.topAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.heightAnchor.constraint(equalToConstant: 750)
+            tableView.heightAnchor.constraint(equalToConstant: view.bounds.height - height)
             ])
     }
 }
