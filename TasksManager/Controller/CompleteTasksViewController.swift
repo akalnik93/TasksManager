@@ -10,13 +10,13 @@ import UIKit
 
 class CompleteTasksViewController: UIViewController {
 
-    var tabBarHeight : CGFloat?
+    var tabBarHeight: CGFloat?
     
-    func setTabBarHeight(height : CGFloat) {
+    func setTabBarHeight(height: CGFloat) {
         self.tabBarHeight = height
     }
     
-    let tableView : UITableView = {
+    var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
     return tableView
@@ -28,8 +28,6 @@ class CompleteTasksViewController: UIViewController {
         
         tableView.delegate = self
         tableView.dataSource = self
-//        constraintsForTable()
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {

@@ -12,13 +12,13 @@ class NowTasksViewController: UIViewController {
     
     var tabBarSet: Bool = false
     
-    var tabBarHeight : CGFloat?
+    var tabBarHeight: CGFloat?
     
-    func setTabBarHeight(height : CGFloat) {
+    func setTabBarHeight(height: CGFloat) {
         self.tabBarHeight = height
     }
     
-    let tableView : UITableView = {
+    var tableView: UITableView = {
         var tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
     return tableView
@@ -26,18 +26,17 @@ class NowTasksViewController: UIViewController {
     
     let addTaskButton: UIButton = {
         let button = UIButton()
-        button.setTitle("TASK", for: .normal)
+        button.setTitle("+", for: .normal)
         button.setTitleColor(.white, for: .normal)
-//        button.titleLabel?.font = UIFont(name: "Calibri", size: 27)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(openAlert), for: .touchUpInside)
-        button.layer.cornerRadius = 30
-//        button.clipsToBounds = true
+        button.layer.cornerRadius = 25
+
     return button
     }()
     
     @objc private func openAlert() {
-        let alertController : UIAlertController = {
+        let alertController: UIAlertController = {
             let alertController = UIAlertController.init(title: "Создать новую задачу", message: "Введите название и описание задачи", preferredStyle: .alert)
             alertController.addTextField { textField in
                 textField.placeholder = "Название"
@@ -45,7 +44,7 @@ class NowTasksViewController: UIViewController {
             alertController.addTextField { textField in
                 textField.placeholder = "Описание"
             }
-            return alertController
+        return alertController
         }()
         let createButton = UIAlertAction(title: "Создать", style: .default) {
             _ in
@@ -60,22 +59,22 @@ class NowTasksViewController: UIViewController {
         alertController.addAction(cancelButton)
         self.present(alertController, animated: true, completion: nil)
     }
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .white
-        
+        self.view.layer.backgroundColor = UIColor.white.cgColor
         self.tableView.delegate = self
         self.tableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
         if tabBarSet == false {
+            contraintsForButtonView(on: self.view)
             contraintsForButton()
             constraintsForTable()
             tabBarSet = true
         }
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
 }
 
@@ -97,7 +96,7 @@ extension NowTasksViewController: UITableViewDelegate {
         let actionDelete = UIContextualAction.init(style: .destructive, title: "Delete") {
             _,_,_ in
             tasksTestNow.remove(at: indexPath.row)
-            tableView.reloadData()
+            self.tableView.reloadData()
         }
         let swipeDelete = UISwipeActionsConfiguration.init(actions: [actionDelete])
     return swipeDelete
@@ -108,7 +107,7 @@ extension NowTasksViewController: UITableViewDelegate {
             _,_,_ in
             tasksTestComplete.insert(tasksTestNow[indexPath.row], at: 0)
             tasksTestNow.remove(at: indexPath.row)
-            tableView.reloadData()
+            self.tableView.reloadData()
         }
         let swipeTranslate = UISwipeActionsConfiguration.init(actions: [actionTranslate])
     return swipeTranslate
@@ -116,7 +115,6 @@ extension NowTasksViewController: UITableViewDelegate {
 }
 
 extension NowTasksViewController {
-    //MARK: Create on View and Setup Table
     func constraintsForTable() {
         self.view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -126,16 +124,33 @@ extension NowTasksViewController {
             tableView.bottomAnchor.constraint(equalTo: self.addTaskButton.topAnchor)
             ])
     }
-    //Create on View and Setup Button
+
     func contraintsForButton() {
         self.view.addSubview(addTaskButton)
         guard let height = self.tabBarHeight else { return }
         NSLayoutConstraint.activate([
-            addTaskButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -height - self.view.safeAreaInsets.bottom),
-            addTaskButton.heightAnchor.constraint(equalToConstant: 60),
-            addTaskButton.widthAnchor.constraint(equalToConstant: 60),
+            addTaskButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -height),
+            addTaskButton.heightAnchor.constraint(equalToConstant: 50),
+            addTaskButton.widthAnchor.constraint(equalToConstant: 50),
             addTaskButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
             ])
-        addTaskButton.backgroundColor = .gray
+        addTaskButton.backgroundColor = .black
+    }
+    
+    func getPath() -> UIBezierPath {
+        let height = self.tabBarHeight ?? 0
+        let path = UIBezierPath()
+        path.move(to: CGPoint(x: 0, y: self.view.frame.height - height + 20))
+        path.addLine(to: CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height - height - 30))
+        path.addLine(to: CGPoint(x: self.view.frame.width , y: self.view.frame.height - height + 20))
+    return path
+    }
+    
+    func contraintsForButtonView(on view: UIView) {
+        let shapeLayer = CAShapeLayer()
+        self.view.layer.addSublayer(shapeLayer)
+        shapeLayer.strokeColor = UIColor.black.cgColor
+        shapeLayer.lineWidth = 40
+        shapeLayer.path = getPath().cgPath
     }
 }
