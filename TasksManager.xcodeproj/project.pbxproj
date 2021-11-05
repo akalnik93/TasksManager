@@ -14,9 +14,11 @@
 		5B596A2C270ECDBC0040C194 /* TaskStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B596A2B270ECDBC0040C194 /* TaskStorage.swift */; };
 		5B596A32270EDB7B0040C194 /* NowTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B596A31270EDB7B0040C194 /* NowTasksViewController.swift */; };
 		5B596A34270EDB8C0040C194 /* CompleteTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B596A33270EDB8C0040C194 /* CompleteTasksViewController.swift */; };
+		D6573A7868DA3BE92F948A4A /* Pods_TasksManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC84DECCCA91E6C7358A4BDC /* Pods_TasksManager.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3CD7E8408884449B41E8225A /* Pods-TasksManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TasksManager.release.xcconfig"; path = "Target Support Files/Pods-TasksManager/Pods-TasksManager.release.xcconfig"; sourceTree = "<group>"; };
 		5B596A13270ECA860040C194 /* TasksManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TasksManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5B596A16270ECA860040C194 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5B596A1D270ECA870040C194 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -26,6 +28,8 @@
 		5B596A2B270ECDBC0040C194 /* TaskStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskStorage.swift; sourceTree = "<group>"; };
 		5B596A31270EDB7B0040C194 /* NowTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowTasksViewController.swift; sourceTree = "<group>"; };
 		5B596A33270EDB8C0040C194 /* CompleteTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTasksViewController.swift; sourceTree = "<group>"; };
+		9FA64331A032A41E6CA49742 /* Pods-TasksManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TasksManager.debug.xcconfig"; path = "Target Support Files/Pods-TasksManager/Pods-TasksManager.debug.xcconfig"; sourceTree = "<group>"; };
+		FC84DECCCA91E6C7358A4BDC /* Pods_TasksManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TasksManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +37,30 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D6573A7868DA3BE92F948A4A /* Pods_TasksManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		59D46F5FAF5A64326A119A3B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				9FA64331A032A41E6CA49742 /* Pods-TasksManager.debug.xcconfig */,
+				3CD7E8408884449B41E8225A /* Pods-TasksManager.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 		5B596A0A270ECA860040C194 = {
 			isa = PBXGroup;
 			children = (
 				5B596A15270ECA860040C194 /* TasksManager */,
 				5B596A14270ECA860040C194 /* Products */,
+				59D46F5FAF5A64326A119A3B /* Pods */,
+				781B75A540B0AC9CFDAA572B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -86,6 +103,14 @@
 			path = Controller;
 			sourceTree = "<group>";
 		};
+		781B75A540B0AC9CFDAA572B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				FC84DECCCA91E6C7358A4BDC /* Pods_TasksManager.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -93,9 +118,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5B596A25270ECA870040C194 /* Build configuration list for PBXNativeTarget "TasksManager" */;
 			buildPhases = (
+				4BBBD4891AA5D20E489A2FBF /* [CP] Check Pods Manifest.lock */,
 				5B596A0F270ECA860040C194 /* Sources */,
 				5B596A10270ECA860040C194 /* Frameworks */,
 				5B596A11270ECA860040C194 /* Resources */,
+				F7A2DDA28C0540D0417649FC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -150,6 +177,48 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4BBBD4891AA5D20E489A2FBF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-TasksManager-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F7A2DDA28C0540D0417649FC /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TasksManager/Pods-TasksManager-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TasksManager/Pods-TasksManager-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TasksManager/Pods-TasksManager-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		5B596A0F270ECA860040C194 /* Sources */ = {
@@ -296,6 +365,7 @@
 		};
 		5B596A26270ECA870040C194 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9FA64331A032A41E6CA49742 /* Pods-TasksManager.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -314,6 +384,7 @@
 		};
 		5B596A27270ECA870040C194 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3CD7E8408884449B41E8225A /* Pods-TasksManager.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
