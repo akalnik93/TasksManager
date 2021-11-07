@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -41,9 +42,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = tabBarVC
         window?.makeKeyAndVisible() // устанавливает window в качестве ключевого и видимового !
         
-//        secondVC.loadViewIfNeeded() // таббаритем появляется сразу а не после нажатия !
-        
     return true
     }
 }
-

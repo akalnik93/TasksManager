@@ -7,8 +7,13 @@
 //
 
 import UIKit
+import RealmSwift
 
 class NowTasksViewController: UIViewController {
+    
+    var realm = try! Realm()
+    var tasksNowArray: Results<TasksNowStorage>!
+    var tasksCompleteArray: Results<TasksCompleteStorage>!
     
     var tabBarSet: Bool = false
     
@@ -50,8 +55,10 @@ class NowTasksViewController: UIViewController {
             _ in
             let taskTitle = alertController.textFields?[0].text ?? ""
             let taskContent = alertController.textFields?[1].text ?? ""
-            let task = Task(title: taskTitle, content: taskContent, property: .now)
-            tasksTestNow.append(task)
+            let task = TasksNowStorage(value: [taskTitle, taskContent])
+            try! self.realm.write {
+                self.realm.add(task)
+            }
             self.tableView.reloadData()
         }
         let cancelButton = UIAlertAction(title: "Закрыть", style: .destructive)
@@ -74,19 +81,21 @@ class NowTasksViewController: UIViewController {
             constraintsForTable()
             tabBarSet = true
         }
+        self.tasksNowArray = realm.objects(TasksNowStorage.self)
+        self.tasksCompleteArray = realm.objects(TasksCompleteStorage.self)
         self.tableView.reloadData()
     }
 }
 
 extension NowTasksViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return tasksTestNow.count
+    return tasksNowArray.count
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value2, reuseIdentifier: nil)
-            cell.textLabel?.text = tasksTestNow[indexPath.row].title
-            cell.detailTextLabel?.text = tasksTestNow[indexPath.row].content
+            cell.textLabel?.text = tasksNowArray[indexPath.row].taskNowTitle
+            cell.detailTextLabel?.text = tasksNowArray[indexPath.row].taskNowContent
     return cell
     }
 }
@@ -95,7 +104,9 @@ extension NowTasksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let actionDelete = UIContextualAction.init(style: .destructive, title: "Delete") {
             _,_,_ in
-            tasksTestNow.remove(at: indexPath.row)
+            try! self.realm.write {
+                self.realm.delete(self.tasksNowArray[indexPath.row])
+            }
             self.tableView.reloadData()
         }
         let swipeDelete = UISwipeActionsConfiguration.init(actions: [actionDelete])
@@ -105,8 +116,11 @@ extension NowTasksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let actionTranslate = UIContextualAction.init(style: .normal, title: "To complete") {
             _,_,_ in
-            tasksTestComplete.insert(tasksTestNow[indexPath.row], at: 0)
-            tasksTestNow.remove(at: indexPath.row)
+            try! self.realm.write {
+                let task = TasksCompleteStorage(value: [self.tasksNowArray[indexPath.row].taskNowTitle, self.tasksNowArray[indexPath.row].taskNowContent])
+                self.realm.add(task)
+                self.realm.delete(self.tasksNowArray[indexPath.row])
+            }
             self.tableView.reloadData()
         }
         let swipeTranslate = UISwipeActionsConfiguration.init(actions: [actionTranslate])

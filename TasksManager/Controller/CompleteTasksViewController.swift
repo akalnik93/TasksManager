@@ -7,9 +7,14 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CompleteTasksViewController: UIViewController {
-
+    
+    var realm = try! Realm()
+    var tasksNowArray: Results<TasksNowStorage>!
+    var tasksCompleteArray: Results<TasksCompleteStorage>!
+    
     var tabBarHeight: CGFloat?
     
     func setTabBarHeight(height: CGFloat) {
@@ -32,19 +37,21 @@ class CompleteTasksViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         constraintsForTable()
+        self.tasksNowArray = realm.objects(TasksNowStorage.self)
+        self.tasksCompleteArray = realm.objects(TasksCompleteStorage.self)
         tableView.reloadData()
     }
 }
 
 extension CompleteTasksViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return tasksTestComplete.count
+    return tasksCompleteArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .value2, reuseIdentifier: nil)
-            cell.textLabel?.text = tasksTestComplete[indexPath.row].title
-            cell.detailTextLabel?.text = tasksTestComplete[indexPath.row].content
+            cell.textLabel?.text = tasksCompleteArray[indexPath.row].taskCompleteTitle
+            cell.detailTextLabel?.text = tasksCompleteArray[indexPath.row].taskCompleteContent
     return cell
     }
 }
@@ -53,7 +60,9 @@ extension CompleteTasksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let actionDelete = UIContextualAction.init(style: .destructive, title: "Delete") {
             _,_,_ in
-            tasksTestComplete.remove(at: indexPath.row)
+            try! self.realm.write {
+                self.realm.delete(self.tasksCompleteArray[indexPath.row])
+            }
             tableView.reloadData()
         }
         let swipeDelete = UISwipeActionsConfiguration.init(actions: [actionDelete])
@@ -63,8 +72,11 @@ extension CompleteTasksViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let actionTranslate = UIContextualAction.init(style: .normal, title: "To Now") {
             _,_,_ in
-            tasksTestNow.insert(tasksTestComplete[indexPath.row], at: 0)
-            tasksTestComplete.remove(at: indexPath.row)
+            try! self.realm.write {
+                let task = TasksNowStorage(value: [self.tasksCompleteArray[indexPath.row].taskCompleteTitle, self.tasksCompleteArray[indexPath.row].taskCompleteContent])
+                self.realm.add(task)
+                self.realm.delete(self.tasksCompleteArray[indexPath.row])
+            }
             tableView.reloadData()
         }
         let swipeTranslate = UISwipeActionsConfiguration.init(actions: [actionTranslate])
