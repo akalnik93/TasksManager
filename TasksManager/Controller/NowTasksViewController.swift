@@ -1,11 +1,3 @@
-//
-//  NowTasksViewController.swift
-//  TasksManager
-//
-//  Created by Aleksey on 07.10.2021.
-//  Copyright © 2021 Aleksey. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 
@@ -29,6 +21,8 @@ class NowTasksViewController: UIViewController {
     return tableView
     }()
     
+    let idCustomCell = "idCustomCell"
+    
     let addTaskButton: UIButton = {
         let button = UIButton()
         button.setTitle("+", for: .normal)
@@ -36,7 +30,6 @@ class NowTasksViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(openAlert), for: .touchUpInside)
         button.layer.cornerRadius = 25
-
     return button
     }()
     
@@ -72,6 +65,7 @@ class NowTasksViewController: UIViewController {
         self.view.layer.backgroundColor = UIColor.white.cgColor
         self.tableView.delegate = self
         self.tableView.dataSource = self
+        self.tableView.register(CustomCell.self, forCellReuseIdentifier: idCustomCell)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,22 +79,30 @@ class NowTasksViewController: UIViewController {
         self.tasksCompleteArray = realm.objects(TasksCompleteStorage.self)
         self.tableView.reloadData()
     }
+
 }
 
 extension NowTasksViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return tasksNowArray.count
     }
         
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value2, reuseIdentifier: nil)
-            cell.textLabel?.text = tasksNowArray[indexPath.row].taskNowTitle
-            cell.detailTextLabel?.text = tasksNowArray[indexPath.row].taskNowContent
+        let cell = tableView.dequeueReusableCell(withIdentifier: idCustomCell, for: indexPath) as! CustomCell
+        cell.taskTitle.text = tasksNowArray[indexPath.row].taskNowTitle
+        cell.taskContent.text = tasksNowArray[indexPath.row].taskNowContent
     return cell
     }
-}
     
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+
+}
+
 extension NowTasksViewController: UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let actionDelete = UIContextualAction.init(style: .destructive, title: "Delete") {
             _,_,_ in
@@ -126,9 +128,11 @@ extension NowTasksViewController: UITableViewDelegate {
         let swipeTranslate = UISwipeActionsConfiguration.init(actions: [actionTranslate])
     return swipeTranslate
     }
+
 }
 
 extension NowTasksViewController {
+    
     func constraintsForTable() {
         self.view.addSubview(tableView)
         NSLayoutConstraint.activate([
@@ -154,9 +158,9 @@ extension NowTasksViewController {
     func getPath() -> UIBezierPath {
         let height = self.tabBarHeight ?? 0
         let path = UIBezierPath()
-        path.move(to: CGPoint(x: 0, y: self.view.frame.height - height + 20))
-        path.addLine(to: CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height - height - 30))
-        path.addLine(to: CGPoint(x: self.view.frame.width , y: self.view.frame.height - height + 20))
+        path.move(to: CGPoint(x: 0, y: self.view.frame.height - height))
+        path.addLine(to: CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height - height - 50))
+        path.addLine(to: CGPoint(x: self.view.frame.width , y: self.view.frame.height - height))
     return path
     }
     
@@ -164,7 +168,7 @@ extension NowTasksViewController {
         let shapeLayer = CAShapeLayer()
         self.view.layer.addSublayer(shapeLayer)
         shapeLayer.strokeColor = UIColor.black.cgColor
-        shapeLayer.lineWidth = 40
         shapeLayer.path = getPath().cgPath
     }
+
 }

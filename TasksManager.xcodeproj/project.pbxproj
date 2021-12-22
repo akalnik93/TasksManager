@@ -14,6 +14,7 @@
 		5B596A32270EDB7B0040C194 /* NowTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B596A31270EDB7B0040C194 /* NowTasksViewController.swift */; };
 		5B596A34270EDB8C0040C194 /* CompleteTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B596A33270EDB8C0040C194 /* CompleteTasksViewController.swift */; };
 		D6573A7868DA3BE92F948A4A /* Pods_TasksManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC84DECCCA91E6C7358A4BDC /* Pods_TasksManager.framework */; };
+		FEFAB211276E479E00B9F0AC /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFAB210276E479E00B9F0AC /* CustomCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		5B596A33270EDB8C0040C194 /* CompleteTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTasksViewController.swift; sourceTree = "<group>"; };
 		9FA64331A032A41E6CA49742 /* Pods-TasksManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TasksManager.debug.xcconfig"; path = "Target Support Files/Pods-TasksManager/Pods-TasksManager.debug.xcconfig"; sourceTree = "<group>"; };
 		FC84DECCCA91E6C7358A4BDC /* Pods_TasksManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TasksManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FEFAB210276E479E00B9F0AC /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +88,7 @@
 			isa = PBXGroup;
 			children = (
 				5B596A2B270ECDBC0040C194 /* TaskStorageRealm.swift */,
+				FEFAB210276E479E00B9F0AC /* CustomCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -136,7 +139,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1030;
-				LastUpgradeCheck = 1030;
+				LastUpgradeCheck = 1310;
 				ORGANIZATIONNAME = Aleksey;
 				TargetAttributes = {
 					5B596A12270ECA860040C194 = {
@@ -223,6 +226,7 @@
 			files = (
 				5B596A32270EDB7B0040C194 /* NowTasksViewController.swift in Sources */,
 				5B596A2C270ECDBC0040C194 /* TaskStorageRealm.swift in Sources */,
+				FEFAB211276E479E00B9F0AC /* CustomCell.swift in Sources */,
 				5B596A34270EDB8C0040C194 /* CompleteTasksViewController.swift in Sources */,
 				5B596A17270ECA860040C194 /* AppDelegate.swift in Sources */,
 			);
@@ -268,6 +272,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -293,7 +298,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -329,6 +334,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -348,7 +354,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -364,12 +370,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 963Z4ACQJG;
 				INFOPLIST_FILE = TasksManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "-.TasksManager";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -383,12 +390,13 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 963Z4ACQJG;
 				INFOPLIST_FILE = TasksManager/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = "-.TasksManager";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

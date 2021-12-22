@@ -1,11 +1,3 @@
-//
-//  CompleteTasksViewController.swift
-//  TasksManager
-//
-//  Created by Aleksey on 07.10.2021.
-//  Copyright © 2021 Aleksey. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 
@@ -27,33 +19,42 @@ class CompleteTasksViewController: UIViewController {
     return tableView
     }()
 
+    let idCustomCell = "idCustomCell"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        constraintsForTable()
         tableView.delegate = self
         tableView.dataSource = self
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        constraintsForTable()
         self.tasksNowArray = realm.objects(TasksNowStorage.self)
         self.tasksCompleteArray = realm.objects(TasksCompleteStorage.self)
+        self.tableView.register(CustomCell.self, forCellReuseIdentifier: idCustomCell)
         tableView.reloadData()
     }
+
 }
 
 extension CompleteTasksViewController: UITableViewDataSource {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return tasksCompleteArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .value2, reuseIdentifier: nil)
-            cell.textLabel?.text = tasksCompleteArray[indexPath.row].taskCompleteTitle
-            cell.detailTextLabel?.text = tasksCompleteArray[indexPath.row].taskCompleteContent
+        let cell = tableView.dequeueReusableCell(withIdentifier: idCustomCell, for: indexPath) as! CustomCell
+        cell.taskTitle.text = tasksCompleteArray[indexPath.row].taskCompleteTitle
+        cell.taskContent.text = tasksCompleteArray[indexPath.row].taskCompleteContent
     return cell
     }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 120
+    }
+    
 }
 
 extension CompleteTasksViewController: UITableViewDelegate {
@@ -82,10 +83,11 @@ extension CompleteTasksViewController: UITableViewDelegate {
         let swipeTranslate = UISwipeActionsConfiguration.init(actions: [actionTranslate])
     return swipeTranslate
     }
+
 }
 
-//Create on View and Setup Table
 extension CompleteTasksViewController {
+    
     func constraintsForTable() {
         view.addSubview(tableView)
         guard let height = self.tabBarHeight else { return }
@@ -96,4 +98,5 @@ extension CompleteTasksViewController {
             tableView.heightAnchor.constraint(equalToConstant: view.bounds.height - height)
             ])
     }
+
 }

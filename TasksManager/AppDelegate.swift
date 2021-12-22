@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  TasksManager
-//
-//  Created by Aleksey on 06.10.2021.
-//  Copyright © 2021 Aleksey. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 
@@ -15,7 +7,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
         window = UIWindow(frame: UIScreen.main.bounds)
  
         let firstVC = NowTasksViewController()
@@ -23,24 +15,26 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let tabBarVC = UITabBarController()
         tabBarVC.setViewControllers([firstVC, secondVC], animated: true)
-        tabBarVC.tabBar.barTintColor = .black
-        tabBarVC.tabBar.unselectedItemTintColor = .lightGray
-        tabBarVC.tabBar.tintColor = .white
+        tabBarVC.tabBar.backgroundColor = .black
+        tabBarVC.tabBar.unselectedItemTintColor = .white
+        tabBarVC.tabBar.tintColor = .cyan
         
         firstVC.setTabBarHeight(height: tabBarVC.tabBar.frame.height + window!.safeAreaInsets.bottom)
         secondVC.setTabBarHeight(height: tabBarVC.tabBar.frame.height)
         
-        let tabBarItemNow = UITabBarItem(tabBarSystemItem: .bookmarks, tag: 0)
-        tabBarItemNow.titlePositionAdjustment = .init(horizontal: 0, vertical: 5)
+        let tabBarItemNow = UITabBarItem.init(title: "now", image: UIImage(named: "now"), tag: 0)
+        tabBarItemNow.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        tabBarItemNow.titlePositionAdjustment = .init(horizontal: 0, vertical: 8)
         firstVC.tabBarItem = tabBarItemNow
-        tabBarVC.selectedIndex = 0 // имитирует нажатие на таббаритем
+        tabBarVC.selectedIndex = 0
 
-        let tabBarItemComplete = UITabBarItem(tabBarSystemItem: .history, tag: 0)
-        tabBarItemComplete.titlePositionAdjustment = .init(horizontal: 0, vertical: 5)
+        let tabBarItemComplete = UITabBarItem.init(title: "complete", image: UIImage(named: "complete"), tag: 0)
+        tabBarItemComplete.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)
+        tabBarItemComplete.titlePositionAdjustment = .init(horizontal: 0, vertical: 8)
         secondVC.tabBarItem = tabBarItemComplete
         
         window?.rootViewController = tabBarVC
-        window?.makeKeyAndVisible() // устанавливает window в качестве ключевого и видимового !
+        window?.makeKeyAndVisible()
         
     return true
     }
