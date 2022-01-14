@@ -1,29 +1,9 @@
-import Foundation
 import UIKit
 
 class CustomCell: UITableViewCell {
     
-    let taskTitle: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "TimesNewRomanPS-BoldMT", size: 30)
-        label.textAlignment = .left
-        label.adjustsFontSizeToFitWidth = true
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    let taskContent: UILabel = {
-        let label = UILabel()
-        label.font = UIFont(name: "TimesNewRomanPSMT", size: 20)
-        label.textAlignment = .left
-        label.adjustsFontSizeToFitWidth = true
-        label.lineBreakMode = .byWordWrapping
-        label.numberOfLines = 0
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
+    let taskTitle = UILabel(font: UIFont(name: "TimesNewRomanPS-BoldMT", size: 30))
+    let taskContent = UILabel(font: UIFont(name: "TimesNewRomanPSMT", size: 20))
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
