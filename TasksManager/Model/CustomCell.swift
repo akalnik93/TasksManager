@@ -9,6 +9,11 @@ class CustomCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         setConstraintsTaskTitle()
         setConstraintsTaskContent()
+        
+        let view = UIView()
+        view.backgroundColor = UIColor(red: 62/255, green: 190/255, blue: 255/255, alpha: 1)
+
+        self.selectedBackgroundView = view
     }
     
     required init?(coder: NSCoder) {

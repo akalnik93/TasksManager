@@ -15,6 +15,7 @@
 		5B596A34270EDB8C0040C194 /* CompleteTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B596A33270EDB8C0040C194 /* CompleteTasksViewController.swift */; };
 		D6573A7868DA3BE92F948A4A /* Pods_TasksManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC84DECCCA91E6C7358A4BDC /* Pods_TasksManager.framework */; };
 		FEF6F03327904A7A009DF769 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF6F03227904A7A009DF769 /* UILabel.swift */; };
+		FEF6F03527919B9B009DF769 /* BottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF6F03427919B9B009DF769 /* BottomSheet.swift */; };
 		FEFAB211276E479E00B9F0AC /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEFAB210276E479E00B9F0AC /* CustomCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -31,6 +32,7 @@
 		9FA64331A032A41E6CA49742 /* Pods-TasksManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TasksManager.debug.xcconfig"; path = "Target Support Files/Pods-TasksManager/Pods-TasksManager.debug.xcconfig"; sourceTree = "<group>"; };
 		FC84DECCCA91E6C7358A4BDC /* Pods_TasksManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TasksManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FEF6F03227904A7A009DF769 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
+		FEF6F03427919B9B009DF769 /* BottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BottomSheet.swift; sourceTree = "<group>"; };
 		FEFAB210276E479E00B9F0AC /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -101,6 +103,7 @@
 			children = (
 				5B596A31270EDB7B0040C194 /* NowTasksViewController.swift */,
 				5B596A33270EDB8C0040C194 /* CompleteTasksViewController.swift */,
+				FEF6F03427919B9B009DF769 /* BottomSheet.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -240,6 +243,7 @@
 				FEFAB211276E479E00B9F0AC /* CustomCell.swift in Sources */,
 				5B596A34270EDB8C0040C194 /* CompleteTasksViewController.swift in Sources */,
 				FEF6F03327904A7A009DF769 /* UILabel.swift in Sources */,
+				FEF6F03527919B9B009DF769 /* BottomSheet.swift in Sources */,
 				5B596A17270ECA860040C194 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

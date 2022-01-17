@@ -17,10 +17,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         tabBarVC.setViewControllers([firstVC, secondVC], animated: true)
         tabBarVC.tabBar.backgroundColor = .black
         tabBarVC.tabBar.unselectedItemTintColor = .white
-        tabBarVC.tabBar.tintColor = .cyan
+        tabBarVC.tabBar.tintColor = UIColor(red: 62/255, green: 190/255, blue: 255/255, alpha: 1)
         
         firstVC.setTabBarHeight(height: tabBarVC.tabBar.frame.height + window!.safeAreaInsets.bottom)
-        secondVC.setTabBarHeight(height: tabBarVC.tabBar.frame.height)
+        secondVC.setTabBarHeight(height: tabBarVC.tabBar.frame.height + window!.safeAreaInsets.bottom)
         
         let tabBarItemNow = UITabBarItem.init(title: "now", image: UIImage(named: "now"), tag: 0)
         tabBarItemNow.imageInsets = UIEdgeInsets(top: 10, left: 0, bottom: 0, right: 0)

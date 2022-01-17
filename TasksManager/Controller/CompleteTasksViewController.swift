@@ -7,6 +7,8 @@ class CompleteTasksViewController: UIViewController {
     var tasksNowArray: Results<TasksNowStorage>!
     var tasksCompleteArray: Results<TasksCompleteStorage>!
     
+    var tabBarSet: Bool = false
+    
     var tabBarHeight: CGFloat?
     
     func setTabBarHeight(height: CGFloat) {
@@ -16,6 +18,7 @@ class CompleteTasksViewController: UIViewController {
     var tableView: UITableView = {
         let tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.layer.cornerRadius = 10
     return tableView
     }()
 
@@ -23,13 +26,18 @@ class CompleteTasksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        constraintsForTable()
-        tableView.delegate = self
-        tableView.dataSource = self
+        self.view.backgroundColor = .systemGray4
+//        constraintsForTable()
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.register(CustomCell.self, forCellReuseIdentifier: idCustomCell)
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        if tabBarSet == false {
+            constraintsForTable()
+            tabBarSet = true
+        }
         self.tasksNowArray = realm.objects(TasksNowStorage.self)
         self.tasksCompleteArray = realm.objects(TasksCompleteStorage.self)
         self.tableView.register(CustomCell.self, forCellReuseIdentifier: idCustomCell)
@@ -89,13 +97,13 @@ extension CompleteTasksViewController: UITableViewDelegate {
 extension CompleteTasksViewController {
     
     func constraintsForTable() {
-        view.addSubview(tableView)
+        self.view.addSubview(tableView)
         guard let height = self.tabBarHeight else { return }
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            tableView.heightAnchor.constraint(equalToConstant: view.bounds.height - height)
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -15),
+            tableView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -height - 15)
             ])
     }
 

@@ -18,6 +18,7 @@ class NowTasksViewController: UIViewController {
     var tableView: UITableView = {
         var tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.layer.cornerRadius = 10
     return tableView
     }()
     
@@ -25,26 +26,27 @@ class NowTasksViewController: UIViewController {
     
     let addTaskButton: UIButton = {
         let button = UIButton()
-        button.setTitle("+", for: .normal)
+        button.setTitle("add task", for: .normal)
+        button.titleLabel?.font = UIFont(name: "TimesNewRomanPS-BoldMT", size: 15)
         button.setTitleColor(.white, for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.addTarget(self, action: #selector(openAlert), for: .touchUpInside)
-        button.layer.cornerRadius = 25
+        button.layer.cornerRadius = 10
     return button
     }()
     
     @objc private func openAlert() {
         let alertController: UIAlertController = {
-            let alertController = UIAlertController.init(title: "Создать новую задачу", message: "Введите название и описание задачи", preferredStyle: .alert)
+            let alertController = UIAlertController.init(title: "Add new task", message: "Enter title and content", preferredStyle: .alert)
             alertController.addTextField { textField in
-                textField.placeholder = "Название"
+                textField.placeholder = "Title"
             }
             alertController.addTextField { textField in
-                textField.placeholder = "Описание"
+                textField.placeholder = "Content"
             }
         return alertController
         }()
-        let createButton = UIAlertAction(title: "Создать", style: .default) {
+        let createButton = UIAlertAction(title: "Create", style: .default) {
             _ in
             let taskTitle = alertController.textFields?[0].text ?? ""
             let taskContent = alertController.textFields?[1].text ?? ""
@@ -54,7 +56,7 @@ class NowTasksViewController: UIViewController {
             }
             self.tableView.reloadData()
         }
-        let cancelButton = UIAlertAction(title: "Закрыть", style: .destructive)
+        let cancelButton = UIAlertAction(title: "Close", style: .destructive)
         alertController.addAction(createButton)
         alertController.addAction(cancelButton)
         self.present(alertController, animated: true, completion: nil)
@@ -62,7 +64,7 @@ class NowTasksViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.layer.backgroundColor = UIColor.white.cgColor
+        self.view.backgroundColor = .systemGray4
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(CustomCell.self, forCellReuseIdentifier: idCustomCell)
@@ -70,7 +72,7 @@ class NowTasksViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         if tabBarSet == false {
-            contraintsForButtonView(on: self.view)
+//            contraintsForButtonView(on: self.view)
             contraintsForButton()
             constraintsForTable()
             tabBarSet = true
@@ -98,7 +100,18 @@ extension NowTasksViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
     }
-
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sheetVC = BottomSheet()
+        if let sheet = sheetVC.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 20
+        }
+        self.present(sheetVC, animated: true)
+    }
+    
 }
 
 extension NowTasksViewController: UITableViewDelegate {
@@ -136,10 +149,10 @@ extension NowTasksViewController {
     func constraintsForTable() {
         self.view.addSubview(tableView)
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: self.view.topAnchor),
-            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
-            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            tableView.bottomAnchor.constraint(equalTo: self.addTaskButton.topAnchor)
+            tableView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor),
+            tableView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 15),
+            tableView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -15),
+            tableView.bottomAnchor.constraint(equalTo: self.addTaskButton.topAnchor, constant: -15)
             ])
     }
 
@@ -147,28 +160,29 @@ extension NowTasksViewController {
         self.view.addSubview(addTaskButton)
         guard let height = self.tabBarHeight else { return }
         NSLayoutConstraint.activate([
-            addTaskButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -height),
-            addTaskButton.heightAnchor.constraint(equalToConstant: 50),
-            addTaskButton.widthAnchor.constraint(equalToConstant: 50),
-            addTaskButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+            addTaskButton.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 70),
+            addTaskButton.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -70),
+            addTaskButton.bottomAnchor.constraint(equalTo: self.view.bottomAnchor, constant: -height + 10),
+            addTaskButton.heightAnchor.constraint(equalToConstant: 35)
             ])
         addTaskButton.backgroundColor = .black
     }
-    
-    func getPath() -> UIBezierPath {
-        let height = self.tabBarHeight ?? 0
-        let path = UIBezierPath()
-        path.move(to: CGPoint(x: 0, y: self.view.frame.height - height))
-        path.addLine(to: CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height - height - 50))
-        path.addLine(to: CGPoint(x: self.view.frame.width , y: self.view.frame.height - height))
-    return path
-    }
-    
-    func contraintsForButtonView(on view: UIView) {
-        let shapeLayer = CAShapeLayer()
-        self.view.layer.addSublayer(shapeLayer)
-        shapeLayer.strokeColor = UIColor.black.cgColor
-        shapeLayer.path = getPath().cgPath
-    }
 
+// MARK: Old version button
+//    func getPath() -> UIBezierPath {
+//        let height = self.tabBarHeight ?? 0
+//        let path = UIBezierPath()
+//        path.move(to: CGPoint(x: 15, y: self.view.frame.height - height))
+//        path.addLine(to: CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height - height - 35))
+//        path.addLine(to: CGPoint(x: self.view.frame.width , y: self.view.frame.height - height))
+//        return path
+//    }
+//
+//    func contraintsForButtonView(on view: UIView) {
+//        let shapeLayer = CAShapeLayer()
+//        self.view.layer.addSublayer(shapeLayer)
+//        shapeLayer.strokeColor = UIColor.black.cgColor
+//        shapeLayer.path = getPath().cgPath
+//    }
+//
 }
