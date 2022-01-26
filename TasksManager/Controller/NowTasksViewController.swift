@@ -3,6 +3,25 @@ import RealmSwift
 
 class NowTasksViewController: UIViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        self.view.backgroundColor = UIColor(red: 62/255, green: 190/255, blue: 255/255, alpha: 1)
+        self.tableView.delegate = self
+        self.tableView.dataSource = self
+        self.tableView.register(CustomCell.self, forCellReuseIdentifier: idCustomCell)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        if tabBarSet == false {
+            contraintsForButton()
+            constraintsForTable()
+            tabBarSet = true
+        }
+        self.tasksNowArray = realm.objects(TasksNowStorage.self)
+        self.tasksCompleteArray = realm.objects(TasksCompleteStorage.self)
+        self.tableView.reloadData()
+    }
+    
     var realm = try! Realm()
     var tasksNowArray: Results<TasksNowStorage>!
     var tasksCompleteArray: Results<TasksCompleteStorage>!
@@ -19,6 +38,7 @@ class NowTasksViewController: UIViewController {
         var tableView = UITableView()
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.layer.cornerRadius = 10
+        tableView.showsVerticalScrollIndicator = false
     return tableView
     }()
     
@@ -62,26 +82,6 @@ class NowTasksViewController: UIViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        self.view.backgroundColor = UIColor(red: 62/255, green: 190/255, blue: 255/255, alpha: 1)
-        self.tableView.delegate = self
-        self.tableView.dataSource = self
-        self.tableView.register(CustomCell.self, forCellReuseIdentifier: idCustomCell)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        if tabBarSet == false {
-//            contraintsForButtonView(on: self.view)
-            contraintsForButton()
-            constraintsForTable()
-            tabBarSet = true
-        }
-        self.tasksNowArray = realm.objects(TasksNowStorage.self)
-        self.tasksCompleteArray = realm.objects(TasksCompleteStorage.self)
-        self.tableView.reloadData()
-    }
-
 }
 
 extension NowTasksViewController: UITableViewDataSource {
@@ -110,7 +110,7 @@ extension NowTasksViewController: UITableViewDataSource {
             sheet.preferredCornerRadius = 20
         }
         sheetVC.setIndexPath(indexPath: indexPath)
-        sheetVC.setSomeProperty(vc: self)
+        sheetVC.setHomeVC(VC: self)
         self.present(sheetVC, animated: true)
     }
     
@@ -171,19 +171,3 @@ extension NowTasksViewController {
     }
 
 }
-// MARK: Old version button
-//    func getPath() -> UIBezierPath {
-//        let height = self.tabBarHeight ?? 0
-//        let path = UIBezierPath()
-//        path.move(to: CGPoint(x: 15, y: self.view.frame.height - height))
-//        path.addLine(to: CGPoint(x: self.view.frame.width / 2, y: self.view.frame.height - height - 35))
-//        path.addLine(to: CGPoint(x: self.view.frame.width , y: self.view.frame.height - height))
-//        return path
-//    }
-//
-//    func contraintsForButtonView(on view: UIView) {
-//        let shapeLayer = CAShapeLayer()
-//        self.view.layer.addSublayer(shapeLayer)
-//        shapeLayer.strokeColor = UIColor.black.cgColor
-//        shapeLayer.path = getPath().cgPath
-//    }

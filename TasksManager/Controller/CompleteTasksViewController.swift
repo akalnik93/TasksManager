@@ -3,27 +3,6 @@ import RealmSwift
 
 class CompleteTasksViewController: UIViewController {
     
-    var realm = try! Realm()
-    var tasksNowArray: Results<TasksNowStorage>!
-    var tasksCompleteArray: Results<TasksCompleteStorage>!
-    
-    var tabBarSet: Bool = false
-    
-    var tabBarHeight: CGFloat?
-    
-    func setTabBarHeight(height: CGFloat) {
-        self.tabBarHeight = height
-    }
-    
-    var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.layer.cornerRadius = 10
-    return tableView
-    }()
-
-    let idCustomCell = "idCustomCell"
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor(red: 62/255, green: 190/255, blue: 255/255, alpha: 1)
@@ -42,7 +21,29 @@ class CompleteTasksViewController: UIViewController {
         self.tableView.register(CustomCell.self, forCellReuseIdentifier: idCustomCell)
         self.tableView.reloadData()
     }
+    
+    var realm = try! Realm()
+    var tasksNowArray: Results<TasksNowStorage>!
+    var tasksCompleteArray: Results<TasksCompleteStorage>!
+    
+    var tabBarSet: Bool = false
+    
+    var tabBarHeight: CGFloat?
+    
+    func setTabBarHeight(height: CGFloat) {
+        self.tabBarHeight = height
+    }
+    
+    var tableView: UITableView = {
+        let tableView = UITableView()
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.layer.cornerRadius = 10
+        tableView.showsVerticalScrollIndicator = false
+    return tableView
+    }()
 
+    let idCustomCell = "idCustomCell"
+    
 }
 
 extension CompleteTasksViewController: UITableViewDataSource {
@@ -71,7 +72,7 @@ extension CompleteTasksViewController: UITableViewDataSource {
             sheet.preferredCornerRadius = 20
         }
         sheetVC.setIndexPath(indexPath: indexPath)
-        sheetVC.setSomeProperty(vc: self)
+        sheetVC.setHomeVC(VC: self)
         self.present(sheetVC, animated: true)
     }
     

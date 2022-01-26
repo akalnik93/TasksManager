@@ -24,7 +24,7 @@ class CompleteTasksBottomSheet: UIViewController {
     }
     
     override func viewDidDisappear(_ animated: Bool) {
-        self.someProperty?.viewWillAppear(animated)
+        self.homeVC?.viewWillAppear(animated)
     }
         
     var titleTextField: UITextField = {
@@ -54,10 +54,10 @@ class CompleteTasksBottomSheet: UIViewController {
         self.indexPath = indexPath
     }
     
-    var someProperty: UIViewController?
+    var homeVC: UIViewController?
     
-    func setSomeProperty(vc: UIViewController) {
-        self.someProperty = vc
+    func setHomeVC(VC: UIViewController) {
+        self.homeVC = VC
     }
     
 }

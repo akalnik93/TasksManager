@@ -104,8 +104,8 @@
 			isa = PBXGroup;
 			children = (
 				5B596A31270EDB7B0040C194 /* NowTasksViewController.swift */,
-				5B596A33270EDB8C0040C194 /* CompleteTasksViewController.swift */,
 				FEF6F03427919B9B009DF769 /* NowTasksBottomSheet.swift */,
+				5B596A33270EDB8C0040C194 /* CompleteTasksViewController.swift */,
 				FE8E2E8727A18DB700E66230 /* CompleteTasksBottomSheet.swift */,
 			);
 			path = Controller;
