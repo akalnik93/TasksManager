@@ -11,8 +11,7 @@ class CustomCell: UITableViewCell {
         setConstraintsTaskContent()
         
         let view = UIView()
-        view.backgroundColor = UIColor(red: 62/255, green: 190/255, blue: 255/255, alpha: 1)
-
+        view.backgroundColor = .systemGray5
         self.selectedBackgroundView = view
     }
     

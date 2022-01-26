@@ -26,8 +26,7 @@ class CompleteTasksViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemGray4
-//        constraintsForTable()
+        self.view.backgroundColor = UIColor(red: 62/255, green: 190/255, blue: 255/255, alpha: 1)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(CustomCell.self, forCellReuseIdentifier: idCustomCell)
@@ -41,7 +40,7 @@ class CompleteTasksViewController: UIViewController {
         self.tasksNowArray = realm.objects(TasksNowStorage.self)
         self.tasksCompleteArray = realm.objects(TasksCompleteStorage.self)
         self.tableView.register(CustomCell.self, forCellReuseIdentifier: idCustomCell)
-        tableView.reloadData()
+        self.tableView.reloadData()
     }
 
 }
@@ -61,6 +60,19 @@ extension CompleteTasksViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 120
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sheetVC = CompleteTasksBottomSheet()
+        if let sheet = sheetVC.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            sheet.prefersGrabberVisible = true
+            sheet.preferredCornerRadius = 20
+        }
+        sheetVC.setIndexPath(indexPath: indexPath)
+        sheetVC.setSomeProperty(vc: self)
+        self.present(sheetVC, animated: true)
     }
     
 }

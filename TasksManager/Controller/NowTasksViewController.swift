@@ -37,7 +37,7 @@ class NowTasksViewController: UIViewController {
     
     @objc private func openAlert() {
         let alertController: UIAlertController = {
-            let alertController = UIAlertController.init(title: "Add new task", message: "Enter title and content", preferredStyle: .alert)
+            let alertController = UIAlertController.init(title: "Add new task", message: nil, preferredStyle: .alert)
             alertController.addTextField { textField in
                 textField.placeholder = "Title"
             }
@@ -61,10 +61,10 @@ class NowTasksViewController: UIViewController {
         alertController.addAction(cancelButton)
         self.present(alertController, animated: true, completion: nil)
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.view.backgroundColor = .systemGray4
+        self.view.backgroundColor = UIColor(red: 62/255, green: 190/255, blue: 255/255, alpha: 1)
         self.tableView.delegate = self
         self.tableView.dataSource = self
         self.tableView.register(CustomCell.self, forCellReuseIdentifier: idCustomCell)
@@ -102,13 +102,15 @@ extension NowTasksViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let sheetVC = BottomSheet()
+        let sheetVC = NowTasksBottomSheet()
         if let sheet = sheetVC.sheetPresentationController {
             sheet.detents = [.medium(), .large()]
             sheet.prefersScrollingExpandsWhenScrolledToEdge = false
             sheet.prefersGrabberVisible = true
             sheet.preferredCornerRadius = 20
         }
+        sheetVC.setIndexPath(indexPath: indexPath)
+        sheetVC.setSomeProperty(vc: self)
         self.present(sheetVC, animated: true)
     }
     
@@ -126,7 +128,7 @@ extension NowTasksViewController: UITableViewDelegate {
         }
         let swipeDelete = UISwipeActionsConfiguration.init(actions: [actionDelete])
     return swipeDelete
-        }
+    }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let actionTranslate = UIContextualAction.init(style: .normal, title: "To complete") {
@@ -168,6 +170,7 @@ extension NowTasksViewController {
         addTaskButton.backgroundColor = .black
     }
 
+}
 // MARK: Old version button
 //    func getPath() -> UIBezierPath {
 //        let height = self.tabBarHeight ?? 0
@@ -184,5 +187,3 @@ extension NowTasksViewController {
 //        shapeLayer.strokeColor = UIColor.black.cgColor
 //        shapeLayer.path = getPath().cgPath
 //    }
-//
-}
