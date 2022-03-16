@@ -18,7 +18,6 @@ class CompleteTasksViewController: UIViewController {
         }
         self.tasksNowArray = realm.objects(TasksNowStorage.self)
         self.tasksCompleteArray = realm.objects(TasksCompleteStorage.self)
-        self.tableView.register(CustomCell.self, forCellReuseIdentifier: idCustomCell)
         self.tableView.reloadData()
     }
     

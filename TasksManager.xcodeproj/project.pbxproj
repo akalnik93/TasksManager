@@ -14,6 +14,7 @@
 		5B596A32270EDB7B0040C194 /* NowTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B596A31270EDB7B0040C194 /* NowTasksViewController.swift */; };
 		5B596A34270EDB8C0040C194 /* CompleteTasksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B596A33270EDB8C0040C194 /* CompleteTasksViewController.swift */; };
 		D6573A7868DA3BE92F948A4A /* Pods_TasksManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FC84DECCCA91E6C7358A4BDC /* Pods_TasksManager.framework */; };
+		FE4A599727B26AD10043DAD4 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE4A599627B26AD10043DAD4 /* UIColor.swift */; };
 		FE8E2E8827A18DB700E66230 /* CompleteTasksBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FE8E2E8727A18DB700E66230 /* CompleteTasksBottomSheet.swift */; };
 		FEF6F03327904A7A009DF769 /* UILabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF6F03227904A7A009DF769 /* UILabel.swift */; };
 		FEF6F03527919B9B009DF769 /* NowTasksBottomSheet.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEF6F03427919B9B009DF769 /* NowTasksBottomSheet.swift */; };
@@ -32,6 +33,7 @@
 		5B596A33270EDB8C0040C194 /* CompleteTasksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTasksViewController.swift; sourceTree = "<group>"; };
 		9FA64331A032A41E6CA49742 /* Pods-TasksManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TasksManager.debug.xcconfig"; path = "Target Support Files/Pods-TasksManager/Pods-TasksManager.debug.xcconfig"; sourceTree = "<group>"; };
 		FC84DECCCA91E6C7358A4BDC /* Pods_TasksManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_TasksManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE4A599627B26AD10043DAD4 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		FE8E2E8727A18DB700E66230 /* CompleteTasksBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompleteTasksBottomSheet.swift; sourceTree = "<group>"; };
 		FEF6F03227904A7A009DF769 /* UILabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UILabel.swift; sourceTree = "<group>"; };
 		FEF6F03427919B9B009DF769 /* NowTasksBottomSheet.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NowTasksBottomSheet.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 			isa = PBXGroup;
 			children = (
 				FEF6F03227904A7A009DF769 /* UILabel.swift */,
+				FE4A599627B26AD10043DAD4 /* UIColor.swift */,
 			);
 			path = Extentions;
 			sourceTree = "<group>";
@@ -245,6 +248,7 @@
 				5B596A2C270ECDBC0040C194 /* TaskStorageRealm.swift in Sources */,
 				FE8E2E8827A18DB700E66230 /* CompleteTasksBottomSheet.swift in Sources */,
 				FEFAB211276E479E00B9F0AC /* CustomCell.swift in Sources */,
+				FE4A599727B26AD10043DAD4 /* UIColor.swift in Sources */,
 				5B596A34270EDB8C0040C194 /* CompleteTasksViewController.swift in Sources */,
 				FEF6F03327904A7A009DF769 /* UILabel.swift in Sources */,
 				FEF6F03527919B9B009DF769 /* NowTasksBottomSheet.swift in Sources */,
@@ -318,7 +322,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -374,7 +378,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -397,7 +401,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.5;
-				PRODUCT_BUNDLE_IDENTIFIER = "-.TasksManager";
+				PRODUCT_BUNDLE_IDENTIFIER = AK.TasksManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -417,7 +421,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.5;
-				PRODUCT_BUNDLE_IDENTIFIER = "-.TasksManager";
+				PRODUCT_BUNDLE_IDENTIFIER = AK.TasksManager;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
